@@ -1,0 +1,184 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Exercicio1 {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Double> notas = new ArrayList<>();
+
+        // Cadastro inicial das notas
+        System.out.println("Digite as notas iniciais.");
+        System.out.println("Digite -1 para finalizar o cadastro.");
+
+        while (true) {
+            System.out.print("Digite uma nota: ");
+            double nota = scanner.nextDouble();
+
+            if (nota == -1) {
+                break;
+            }
+
+            if (nota >= 0 && nota <= 100) {
+                notas.add(nota);
+            } else {
+                System.out.println("Nota inválida!");
+            }
+        }
+
+        int opcao;
+
+        do {
+            System.out.println("\n===== MENU =====");
+            System.out.println("1 - Adicionar nota");
+            System.out.println("2 - Remover nota");
+            System.out.println("3 - Listar notas");
+            System.out.println("4 - Calcular média");
+            System.out.println("5 - Ordenar notas");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+
+                case 1:
+                    System.out.print("Digite a nota: ");
+                    double nota = scanner.nextDouble();
+
+                    if (nota >= 0 && nota <= 100) {
+                        notas.add(nota);
+                        System.out.println("Nota adicionada!");
+                    } else {
+                        System.out.println("Nota inválida!");
+                    }
+                    break;
+
+                case 2:
+                    if (notas.isEmpty()) {
+                        System.out.println("Não existem notas cadastradas.");
+                        break;
+                    }
+
+                    System.out.println("\nNotas cadastradas:");
+                    for (int i = 0; i < notas.size(); i++) {
+                        System.out.println("Posição " + i + ": " + notas.get(i));
+                    }
+
+                    System.out.print("Digite a posição da nota que deseja remover: ");
+                    int posicao = scanner.nextInt();
+
+                    if (posicao >= 0 && posicao < notas.size()) {
+                        notas.remove(posicao);
+                        System.out.println("Nota removida!");
+                    } else {
+                        System.out.println("Posição inválida!");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("\n===== NOTAS =====");
+
+                    if (notas.isEmpty()) {
+                        System.out.println("Nenhuma nota cadastrada.");
+                    } else {
+                        for (int i = 0; i < notas.size(); i++) {
+                            System.out.println(
+                                "Posição " + i + ": " + notas.get(i)
+                            );
+                        }
+                    }
+                    break;
+
+                case 4:
+                    if (notas.isEmpty()) {
+                        System.out.println("Não existem notas para calcular a média.");
+                    } else {
+                        double soma = 0;
+
+                        for (double n : notas) {
+                            soma += n;
+                        }
+
+                        double media = soma / notas.size();
+
+                        System.out.printf("Média das notas: %.2f%n", media);
+                    }
+                    break;
+
+                case 5:
+                    Collections.sort(notas);
+
+                    System.out.println("Notas ordenadas:");
+                    for (double n : notas) {
+                        System.out.println(n);
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Programa encerrado.");
+                    break;
+
+                default:
+                    System.out.println("Opção inválida!");
+            }
+
+        } while (opcao != 0);
+
+        scanner.close();
+    }
+}
+public class Aluno {
+
+    private int nota1;
+    private int nota2;
+    private String nome;
+
+    // Construtor
+    public Aluno(String nome, int nota1, int nota2) {
+        this.nome = nome;
+        this.nota1 = nota1;
+        this.nota2 = nota2;
+    }
+
+    // Getters e Setters
+
+    public int getNota1() {
+        return nota1;
+    }
+
+    public void setNota1(int nota1) {
+        this.nota1 = nota1;
+    }
+
+    public int getNota2() {
+        return nota2;
+    }
+
+    public void setNota2(int nota2) {
+        this.nota2 = nota2;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    // Calcula a média do aluno
+    public double calcularMedia() {
+        return (nota1 + nota2) / 2.0;
+    }
+
+    // Exibe os dados
+    public void exibirDados() {
+        System.out.println("Nome: " + nome);
+        System.out.println("Nota 1: " + nota1);
+        System.out.println("Nota 2: " + nota2);
+        System.out.printf("Média: %.2f%n", calcularMedia());
+    }
+}
